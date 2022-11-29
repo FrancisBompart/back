@@ -1,4 +1,4 @@
-import insertQuery from "../../../utils/querys.js"
+import insertQuery from "../../utils/insertQuery.js"
 import selectQuery from "../../utils/selectQuery.js"
 
 const asociacionesRegGet = (req, res) => {

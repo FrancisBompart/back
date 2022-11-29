@@ -1,5 +1,5 @@
-import pool from "../database/database"
-import selectQuery from "../utils/selectQuery"
+import pool from "../database/database.js"
+import selectQuery from "../utils/selectQuery.js"
 
 const personaPost = (req, res) => {
     const {doc_id, nombre1, apellido1, nombre2, apellido2} = req.body
