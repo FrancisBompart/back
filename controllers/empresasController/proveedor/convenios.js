@@ -8,7 +8,8 @@ const beneficiosGet = (req, res) => {
     selectQuery("id", " convenios", condicion, '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -32,7 +33,8 @@ const beneficiosPost = (req, res) => {
     insertQuery('beneficios', condicion, columnas, valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -40,7 +42,8 @@ const proveedorGet = (req, res) => {
     selectQuery("p.id, p.nombre", "proveedores p", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -48,7 +51,8 @@ const asociacionRegGet = (req, res) => {
     selectQuery("a.id, a.nombre", "asociacionesregionales a", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     }) 
 }
 
@@ -58,7 +62,8 @@ const catalogoProdPost = (req, res) => {
     selectQuery("c.id_prod, p.nombre", "catalogoproveedores c, empresasproductoras p", condicion, '', (err, result) => {
         if (err)
             res.status(500).json(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -80,7 +85,8 @@ const convenioPost = (req, res) => {
     insertQuery('convenios', condicion, columnas , valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -90,7 +96,8 @@ const cancelarConvenioGet = (req, res) => {
     selectQuery("id", "convenios", condicion, '', (err, result) => {
         if (err)
             res.send.status(500).json(err)
-        res.send.json(result)
+        else
+            res.send.json(result)
     })
 }
 
@@ -99,7 +106,8 @@ const cancelarConvenioPost = (req, res) => {
     pool.query("UPDATE convenios SET vigencia = 'Vencido' WHERE id_prove = " + id_prove + " AND " + columna + " = " + valor, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

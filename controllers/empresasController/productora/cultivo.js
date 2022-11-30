@@ -8,15 +8,19 @@ const cultivosGet = (req, res) => {
     selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => { 
         if (err)
             res.status(500).send(err)
-        productoras = result
+        else{
+            productoras = result
 
-        selectQuery("v.id, v.nombre", "variedadescrz v", '', '', (err, result) => {
-            if (err)
-                res.status(500).send(err)
-            variedades = result
-
-            res.json({productoras, variedades})
-        })
+            selectQuery("v.id, v.nombre", "variedadescrz v", '', '', (err, result) => {
+                if (err)
+                    res.status(500).send(err)
+                else{
+                    variedades = result
+                    res.json({productoras, variedades})
+                }
+                
+            })
+        }
     })
 }
 
@@ -30,7 +34,8 @@ const cultivosPost = (req, res) => {
     insertQuery('cultivos', condicion, ' (id, id_prod, id_crz, calibre, disp_i, disp_f, prod_esp, max_dist_exp)', valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

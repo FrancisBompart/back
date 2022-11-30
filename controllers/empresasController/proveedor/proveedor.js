@@ -7,15 +7,18 @@ const proveedorGet = (req, res) => {
     selectQuery("c.id_pais, c.id, c.nombre", "ciudades c", '', '',(err, result) => { 
         if (err)
             res.status(500).send(err)
-        regiones = result
+        else{
+            regiones = result
 
-        selectQuery("id, nombre", "ramasnegocio", '', '',(err, result) => {
-            if (err)
-                res.status(500).send(err)
-            ramasNeg = result
-        })
-
-        res.json({regiones, ramasNeg})
+            selectQuery("id, nombre", "ramasnegocio", '', '',(err, result) => {
+                if (err)
+                    res.status(500).send(err)
+                else{
+                    ramasNeg = result
+                    res.json({regiones, ramasNeg})
+                }
+            })
+        }
     })    
 }
 
@@ -27,7 +30,8 @@ const proveedorPost = (req, res) => {
     insertQuery('proveedores', '', " (id, rama_neg, id_pais, id_cdad, nombre, direc)", valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -38,7 +42,8 @@ const ramaNegocioPost = (req, res) => {
     insertQuery('ramasnegocio', '', " (id, nombre)", valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

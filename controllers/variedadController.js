@@ -3,10 +3,11 @@ import insertQuery from "../utils/insertQuery.js"
 import selectQuery from "../utils/selectQuery.js"
 
 const variedadGet = (req, res) => {
-    selectQuery("id, nombre", "paises", '', '', (err, result) => { //PAISES
+    selectQuery("id, nombre", "paises", '', '', (err, result) => { 
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -18,7 +19,8 @@ const variedadPost = (req, res) => {
     insertQuery('variedadescrz', '', ' (id, id_pais, nombre, especie, preco, descrip)', valores, (err, result) => {
         if (err)
             res.status(500).json(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -29,28 +31,31 @@ const precioVariedadGet = (req, res) => {
     selectQuery("id, nombre", "paises", '', '', (err, result) => { 
         if (err)
             res.status(500).send(err)
+        else{
+            paises = result
 
-        paises = result
-
-        selectQuery("id, nombre", "variedadescrz", '', '', (err, result) => { 
-            if (err)
-                res.status(500).send(err)
-            variedades = result
-
-            res.json({paises, variedades})
-        })
+            selectQuery("id, nombre", "variedadescrz", '', '', (err, result) => { 
+                if (err)
+                    res.status(500).send(err)
+                else{
+                    variedades = result
+                    res.json({paises, variedades})
+                }
+            })
+        }
     }) 
 }
 
 const precioVarActualGet = (req, res) => {
-    const {id_pais, id_crz} = req.body
+    const {id_pais, id_crz, calibre} = req.body
 
-    const condicion = " WHERE id_pais = "+ id_pais + " AND id_crz = "+ id_crz + " AND fe_f IS NULL"
+    const condicion = " WHERE id_pais = "+ id_pais + " AND id_crz = "+ id_crz + " AND calibre = '" + calibre + "' AND fe_f IS NULL"
 
     selectQuery("id, precio, calibre", "paisescrzs", condicion, '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -63,7 +68,8 @@ const precioVariedadPost = (req, res) => {
     insertQuery('paisescrzs', condicion ,' (id, id_pais, id_crz, precio, calibre, fe_i)', valores, (err, result) => {
         if (err)
             res.status(500).json(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -73,7 +79,8 @@ const cancelarPrecioPost = (req, res) => {
     pool.query("UPDATE paisescrzs SET fe_f = CURDATE() WHERE id_pais = "+ id_pais + " AND id_crz = "+ id_crz + " AND id = "+ id , (err, result) => {
         if (err)
             res.status(500).json(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

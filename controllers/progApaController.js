@@ -24,7 +24,8 @@ const personaPost = (req, res) => {
     pool.query("INSERT INTO personas " + columnas + " VALUES " + valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -35,18 +36,18 @@ const progApaGet = (req, res) => {
     selectQuery("(doc_id, nombre1, apellido1)", "personas", "", '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        
-        personas = result
+        else{
+            personas = result
 
-        selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => { //
-            if (err)
-                res.status(500).send(err)
-
-            productoras = result
-
-            res.json({personas, productoras})
-        })
-
+            selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => { //
+                if (err)
+                    res.status(500).send(err)
+                else{
+                    productoras = result
+                    res.json({personas, productoras})
+                }
+            })
+        }
     })
 }
 
@@ -58,7 +59,8 @@ const variedadPost = (req, res) => {
     selectQuery("v.nombre, v.id", "variedadescrz v, cultivos c", condicion, " GROUP BY v.id", (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -79,7 +81,8 @@ const progApaPost = (req, res) => {
     pool.query("INSERT INTO apadrinamientos " + columnas + " VALUES "+ valores, (err, result) =>{
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })    
 }
 
@@ -91,7 +94,8 @@ const cancelarProgApaPerPost = (req, res) => {
     selectQuery("p.doc_id, p.nombre1, p.apellido1", " apadrinamientos a, personas p", condicion, "GROUP BY p.doc_id", (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.send(result)
+        else
+            res.send(result)
     })
 }
 
@@ -103,7 +107,8 @@ const cancelarProgApaCrzPost = (req, res) => {
     selectQuery("v.id, v.nombre", " variedadescrz v, apadrinamientos a", condicion, "GROUP BY v.id", (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.send(result)
+        else
+            res.send(result)
     })
 }
 
@@ -113,7 +118,8 @@ const cancelarProgApaPost = (req, res) => {
     pool.query("UPDATE apadrinamientos SET fecha_fin = CURDATE() WHERE id_per = " + id_per + " AND id_crz = " + id_crz + " AND id_prod = " + id_prod, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     } )
 }
 
@@ -121,7 +127,8 @@ const productoraGet = (req, res) => {
     selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => { //
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

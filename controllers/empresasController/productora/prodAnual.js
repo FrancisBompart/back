@@ -9,7 +9,8 @@ const prodAnualGet = (req, res) => {
     selectQuery("v.nombre, v.id, c.id, c.calibre", "variedadescrz v, cultivos c", condicion, '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -21,7 +22,8 @@ const prodAnualPost = (req, res) => {
     pool.query('INSERT INTO produccionesanuales (id_prod, id_crz, id_cult, anio, prod_log) VALUES '+ valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)    
+        else
+            res.json(result)    
     })
 }
 

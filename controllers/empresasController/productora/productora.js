@@ -5,7 +5,8 @@ const productoraRegGet = (req, res) => {
     selectQuery("r.id_pais, r.id, r.nombre", "regiones r", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -13,7 +14,8 @@ const productoraAsocRegGet = (req, res) => {
     selectQuery("a.id, a.nombre", "asociacionesregionales a", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     }) 
 }
 
@@ -21,7 +23,8 @@ const productoraCoopGet = (req, res) => {
     selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     }) 
 }
 
@@ -43,7 +46,8 @@ const productoraPost = (req, res) => {
     insertQuery('empresasproductoras', '', columnas + ") ", valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

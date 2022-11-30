@@ -5,7 +5,8 @@ const asociacionesRegGet = (req, res) => {
     selectQuery("r.id_pais, r.id, r.nombre", "regiones r", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -15,7 +16,8 @@ const asociacionesRegPost = (req, res) => {
     insertQuery('asociacionesregionales', '', " (id, id_pais, id_reg, nombre)", valores, (err, result) => {
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

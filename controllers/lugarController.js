@@ -6,7 +6,8 @@ const ciudadregionGet = (req, res) => {
     selectQuery("id, nombre", "paises", '', '', (err, result) => { //PAISES
         if (err)
             res.status(500).send(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -19,7 +20,8 @@ const ciudadregionPost = (req, res) => {
     insertQuery(tabla, condicion, ' (id, id_pais, nombre)', valores, (err, result) => {
         if (err)
             res.status(500).json(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
@@ -31,7 +33,8 @@ const paisPost = (req, res) => {
     insertQuery('paises', '', ' (id, nombre, continent)', valores, (err, result) => {
         if (err)
             res.status(500).json(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 

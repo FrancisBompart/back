@@ -8,15 +8,19 @@ const catalogoGet = (req, res) => {
     selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => { //
         if (err)
             res.status(500).send(err)
-        productoras = result
+        
+        else {
+            productoras = result
 
-        selectQuery("p.id, p.nombre", "proveedores p", '', '', (err, result) => {
-            if (err)
-                res.status(500).send(err)
-            proveedores = result
-
-            res.json({productoras, proveedores})
-        })
+            selectQuery("p.id, p.nombre", "proveedores p", '', '', (err, result) => {
+                if (err)
+                    res.status(500).send(err)
+                else{
+                    proveedores = result
+                    res.json({productoras, proveedores})
+                }
+            })
+        }
     })
 }
 
@@ -26,7 +30,8 @@ const catalogoPost = (req, res) => {
     pool.query("INSERT INTO catalogoproveedores (id_prod, id_prove) VALUES (" + id_prod + ", " + id_prove + ")", (err, result) => {
         if (err)
             res.status(500).json(err)
-        res.json(result)
+        else
+            res.json(result)
     })
 }
 
