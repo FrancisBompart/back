@@ -7,12 +7,12 @@ const personaPost = (req, res) => {
     let valores = "(" + doc_id + ", '" + nombre1 + "', '" + apellido1 + "'"
     let columnas = " (doc_id, nombre1, apellido1"
 
-    if (nombre2 != ''){
+    if (nombre2 !== ''){
         valores = valores + ", '" + nombre2 + "'"
         columnas = columnas + ", nombre2"
     }
 
-    if (apellido2 != ''){
+    if (apellido2 !== ''){
         valores = valores + ", '" + apellido2 + "'"
         columnas = columnas + ", apellido2"
     }
