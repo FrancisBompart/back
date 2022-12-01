@@ -12,8 +12,8 @@ let insertQuery = (tabla, condicion, columnas, valores, callback) => {
         pool.query("INSERT INTO " + tabla + columnas + " VALUES ("+ id + ", " + valores + ")", (err, result) => {
             if (err)
                 callback(err, null)
-
-            callback(null, result)
+            else
+                callback(null, result)
         })
     }
 })}

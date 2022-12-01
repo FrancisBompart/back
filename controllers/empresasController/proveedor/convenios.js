@@ -76,7 +76,7 @@ const convenioPost = (req, res) => {
     let columnas = '(id, id_prove, fe_emision, vigencia, '
 
     if (columna == 'id_cat_prod'){
-        valores = valores + ", " + id_prove 
+        valores = valores + ", " + + id_prove 
         columnas = columnas + 'id_cat_prod, id_cat_prove)'
     }
     else

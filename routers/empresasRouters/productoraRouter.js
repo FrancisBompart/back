@@ -16,7 +16,7 @@ router.get('/produccionAnual', prodAnualController.prodAnualGet)
 router.post('/produccionAnual', prodAnualController.prodAnualPost)
 
 router.get('/registro/regiones', prodController.productoraRegGet)
-router.get('/registro/asocRegs', prodController.productoraAsocRegGet)
+router.post('/registro/asocRegs', prodController.productoraAsocRegGet)
 router.get('/registro/cooperativas', prodController.productoraCoopGet)
 router.post('/registro', prodController.productoraPost)
 

@@ -21,7 +21,7 @@ const personaPost = (req, res) => {
     columnas = columnas + ")"
 
 
-    pool.query("INSERT INTO personas " + columnas + " VALUES " + valores, (err, result) => {
+    pool.query("INSERT INTO personas" + columnas + " VALUES " + valores, (err, result) => {
         if (err)
             res.status(500).send(err)
         else

@@ -1,21 +1,22 @@
 import selectQuery from "../../../utils/selectQuery.js"
+import insertQuery from "../../../utils/insertQuery.js"
 
 const proveedorGet = (req, res) => {
-    let regiones = []
+    let paises = []
     let ramasNeg = []
 
-    selectQuery("c.id_pais, c.id, c.nombre", "ciudades c", '', '',(err, result) => { 
+    selectQuery("p.id, p.nombre", "paises p", '', '',(err, result) => { 
         if (err)
             res.status(500).send(err)
         else{
-            regiones = result
+            paises = result
 
-            selectQuery("id, nombre", "ramasnegocio", '', '',(err, result) => {
+            selectQuery("r.id, r.nombre", "ramasnegocio r", '', '',(err, result) => {
                 if (err)
                     res.status(500).send(err)
                 else{
                     ramasNeg = result
-                    res.json({regiones, ramasNeg})
+                    res.json({paises, ramasNeg})
                 }
             })
         }
@@ -23,11 +24,11 @@ const proveedorGet = (req, res) => {
 }
 
 const proveedorPost = (req, res) => {
-    const {rama_neg, id_pais, id_cdad, nombre, direc} = req.body
+    const {rama_neg, id_pais, id_cdad, nombre} = req.body
 
-    const valores = rama_neg + ", " + id_pais + ", " + id_cdad + ", '" + nombre + "', '" + direc + "'"
+    const valores = rama_neg + ", " + id_pais + ", " + id_cdad + ", '" + nombre + "'"
 
-    insertQuery('proveedores', '', " (id, rama_neg, id_pais, id_cdad, nombre, direc)", valores, (err, result) => {
+    insertQuery('proveedores', '', " (id, rama_neg, id_pais, id_cdad, nombre)", valores, (err, result) => {
         if (err)
             res.status(500).send(err)
         else

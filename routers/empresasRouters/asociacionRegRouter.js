@@ -3,7 +3,7 @@ import { asocRegController } from "../../controllers/empresasController/asociaci
 
 const router = Router()
 
-router.get('/registro', asocRegController.asociacionesRegGet)
+router.post('', asocRegController.asociacionesRegGet)
 router.post('/registro', asocRegController.asociacionesRegPost)
 
 export const asocRegRouter = router
