@@ -2,7 +2,7 @@ import insertQuery from "../../utils/insertQuery.js"
 import selectQuery from "../../utils/selectQuery.js"
 
 const ciudadesGet = (req, res) => {
-    selectQuery("c.id_pais, c.id, c.nombre", "ciudades c", '', '', (err, result) => {
+    selectQuery("c.id_pais, c.id, c.nombre", " fah_ciudades c", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
         else

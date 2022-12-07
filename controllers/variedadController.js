@@ -2,8 +2,17 @@ import pool from "../database/database.js"
 import insertQuery from "../utils/insertQuery.js"
 import selectQuery from "../utils/selectQuery.js"
 
-const variedadGet = (req, res) => {
-    selectQuery("id, nombre", "paises", '', '', (err, result) => { 
+const variedadPaisesGet = (req, res) => {
+    selectQuery("id, nombre", "fah_paises", '', '', (err, result) => { 
+        if (err)
+            res.status(500).send(err)
+        else
+            res.json(result)
+    })
+}
+
+const variedadesGet = (req, res) => {
+    selectQuery("id, nombre", "fah_variedadescrz", '', '', (err, result) => { 
         if (err)
             res.status(500).send(err)
         else
@@ -28,13 +37,13 @@ const precioVariedadGet = (req, res) => {
     let paises = []
     let variedades = []
 
-    selectQuery("id, nombre", "paises", '', '', (err, result) => { 
+    selectQuery("id, nombre", "fah_paises", '', '', (err, result) => { 
         if (err)
             res.status(500).send(err)
         else{
             paises = result
 
-            selectQuery("id, nombre", "variedadescrz", '', '', (err, result) => { 
+            selectQuery("id, nombre", "fah_variedadescrz", '', '', (err, result) => { 
                 if (err)
                     res.status(500).send(err)
                 else{
@@ -51,7 +60,7 @@ const precioVarActualGet = (req, res) => {
 
     const condicion = " WHERE id_pais = "+ id_pais + " AND id_crz = "+ id_crz + " AND calibre = '" + calibre + "' AND fe_f IS NULL"
 
-    selectQuery("id, precio, calibre", "paisescrzs", condicion, '', (err, result) => {
+    selectQuery("id, precio, calibre", "fah_precioscrzpais", condicion, '', (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -65,7 +74,7 @@ const precioVariedadPost = (req, res) => {
     const condicion = " WHERE id_pais = " + id_pais + " AND id_crz = "+ id_crz
     const valores = id_pais + ", " + id_crz + ", " + precio + ", '" + calibre + "', CURDATE()" 
 
-    insertQuery('paisescrzs', condicion ,' (id, id_pais, id_crz, precio, calibre, fe_i)', valores, (err, result) => {
+    insertQuery('precioscrzpais', condicion ,' (id, id_pais, id_crz, precio, calibre, fe_i)', valores, (err, result) => {
         if (err)
             res.status(500).json(err)
         else
@@ -76,7 +85,7 @@ const precioVariedadPost = (req, res) => {
 const cancelarPrecioPost = (req, res) => {
     const {id_pais, id_crz, id} = req.body
 
-    pool.query("UPDATE paisescrzs SET fe_f = CURDATE() WHERE id_pais = "+ id_pais + " AND id_crz = "+ id_crz + " AND id = "+ id , (err, result) => {
+    pool.query("UPDATE fah_precioscrzpais SET fe_f = CURDATE() WHERE id_pais = "+ id_pais + " AND id_crz = "+ id_crz + " AND id = "+ id , (err, result) => {
         if (err)
             res.status(500).json(err)
         else
@@ -85,5 +94,5 @@ const cancelarPrecioPost = (req, res) => {
 }
 
 export const variedadController = {
-    variedadGet, variedadPost, precioVariedadGet, precioVarActualGet, precioVariedadPost, cancelarPrecioPost
+    variedadPaisesGet, variedadPost, precioVariedadGet, precioVarActualGet, precioVariedadPost, cancelarPrecioPost, variedadesGet
 }

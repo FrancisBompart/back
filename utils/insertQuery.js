@@ -1,6 +1,7 @@
 import pool from "../database/database.js"
 
 let insertQuery = (tabla, condicion, columnas, valores, callback) => {
+    tabla = 'fah_'+tabla
     pool.query("SELECT MAX(id) FROM " + tabla + condicion, (err, result) => {
 
     if (err) 

@@ -3,7 +3,7 @@ import selectQuery from "../../utils/selectQuery.js"
 
 const asociacionesRegGet = (req, res) => {
     const {id_pais} = req.body
-    selectQuery("r.id, r.nombre", "regiones r", " WHERE r.id_pais = " + id_pais, '', (err, result) => {
+    selectQuery("r.id, r.nombre", " fah_regiones r", " WHERE r.id_pais = " + id_pais, '', (err, result) => {
         if (err)
             res.status(500).send(err)
         else

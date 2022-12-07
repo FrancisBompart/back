@@ -2,7 +2,7 @@ import insertQuery from "../utils/insertQuery.js"
 import selectQuery from "../utils/selectQuery.js"
 
 const ciudadregionGet = (req, res) => {
-    selectQuery("id, nombre", "paises", '', '', (err, result) => { 
+    selectQuery("id, nombre", " fah_paises", '', '', (err, result) => { 
         if (err)
             res.status(500).send(err)
         else
@@ -46,7 +46,7 @@ const paisPost = (req, res) => {
 const ciudadesPost = (req, res) => {
     const {id_pais} = req.body
 
-    selectQuery("c.id, c.nombre", "ciudades c", " WHERE id_pais = " + id_pais, '', (err, result) => { 
+    selectQuery("c.id, c.nombre", " fah_ciudades c", " WHERE id_pais = " + id_pais, '', (err, result) => { 
         if (err)
             res.status(500).send(err)
         else

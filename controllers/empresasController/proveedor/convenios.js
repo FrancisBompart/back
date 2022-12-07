@@ -1,11 +1,12 @@
 import selectQuery from "../../../utils/selectQuery.js"
+import insertQuery from "../../../utils/insertQuery.js"
 
 const beneficiosGet = (req, res) => {
     const {id_prove} = req.body
 
     const condicion = " WHERE id_prove = " + id_prove + " AND vigencia = 'Activo'"
 
-    selectQuery("id", " convenios", condicion, '', (err, result) => {
+    selectQuery("id", " fah_convenios", condicion, '', (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -39,7 +40,7 @@ const beneficiosPost = (req, res) => {
 }
 
 const proveedorGet = (req, res) => {
-    selectQuery("p.id, p.nombre", "proveedores p", '', '', (err, result) => {
+    selectQuery("p.id, p.nombre", "fah_proveedores p", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -48,7 +49,7 @@ const proveedorGet = (req, res) => {
 }
 
 const asociacionRegGet = (req, res) => {
-    selectQuery("a.id, a.nombre", "asociacionesregionales a", '', '', (err, result) => {
+    selectQuery("a.id, a.nombre", "fah_asociacionesregionales a", '', '', (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -57,9 +58,9 @@ const asociacionRegGet = (req, res) => {
 }
 
 const catalogoProdPost = (req, res) => {
-    const {id_prov} = req.body
-    const condicion = " WHERE id_prove = " + id_prov + " AND c.id_prod = p.id"
-    selectQuery("c.id_prod, p.nombre", "catalogoproveedores c, empresasproductoras p", condicion, '', (err, result) => {
+    const {id_cat_prod} = req.body
+    const condicion = " WHERE c.id_prod = " + id_cat_prod + " AND c.id_prove = p.id"
+    selectQuery("c.id_prove, p.nombre", "fah_catalogoproveedores c, fah_proveedores p", condicion, '', (err, result) => {
         if (err)
             res.status(500).json(err)
         else
@@ -73,10 +74,10 @@ const convenioPost = (req, res) => {
     const condicion = " WHERE id_prove = " + id_prove
 
     let valores = id_prove + ", CURDATE(), 'Activo', " + valor
-    let columnas = '(id, id_prove, fe_emision, vigencia, '
+    let columnas = ' (id, id_prove, fe_emision, vigencia, '
 
     if (columna == 'id_cat_prod'){
-        valores = valores + ", " + + id_prove 
+        valores = valores + ", " + id_prove 
         columnas = columnas + 'id_cat_prod, id_cat_prove)'
     }
     else
@@ -93,7 +94,7 @@ const convenioPost = (req, res) => {
 const cancelarConvenioGet = (req, res) => {
     const {id_prove, valor, columna} = req.body
     const condicion = "WHERE id_prove = "+ id_prove + " AND " + columna + " = " + valor
-    selectQuery("id", "convenios", condicion, '', (err, result) => {
+    selectQuery("id", "fah_convenios", condicion, '', (err, result) => {
         if (err)
             res.send.status(500).json(err)
         else
@@ -103,7 +104,7 @@ const cancelarConvenioGet = (req, res) => {
 
 const cancelarConvenioPost = (req, res) => {
     const {id_prove, valor, columna} = req.body    
-    pool.query("UPDATE convenios SET vigencia = 'Vencido' WHERE id_prove = " + id_prove + " AND " + columna + " = " + valor, (err, result) => {
+    pool.query("UPDATE fah_convenios SET vigencia = 'Cancelado' WHERE id_prove = " + id_prove + " AND " + columna + " = " + valor, (err, result) => {
         if (err)
             res.status(500).send(err)
         else

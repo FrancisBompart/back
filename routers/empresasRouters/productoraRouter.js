@@ -6,18 +6,19 @@ import { prodController } from "../../controllers/empresasController/productora/
 
 const router = Router()
 
+router.get('',prodController.productorasGet)
 router.get('/catalogoProveedores', catalogoController.catalogoGet)
 router.post('/catalogoProveedores', catalogoController.catalogoPost)
 
 router.get('/registrarCultivo', cultivosController.cultivosGet)
 router.post('/registrarCultivo', cultivosController.cultivosPost)
 
-router.get('/produccionAnual', prodAnualController.prodAnualGet)
+router.post('/produccionAnual/cultivos', prodAnualController.getCultivosPost)
 router.post('/produccionAnual', prodAnualController.prodAnualPost)
 
 router.get('/registro/regiones', prodController.productoraRegGet)
 router.post('/registro/asocRegs', prodController.productoraAsocRegGet)
-router.get('/registro/cooperativas', prodController.productoraCoopGet)
+router.get('/registro/cooperativas', prodController.productoraCoopPost)
 router.post('/registro', prodController.productoraPost)
 
 export const productoraRouter = router

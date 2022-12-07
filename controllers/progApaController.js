@@ -21,7 +21,7 @@ const personaPost = (req, res) => {
     columnas = columnas + ")"
 
 
-    pool.query("INSERT INTO personas" + columnas + " VALUES " + valores, (err, result) => {
+    pool.query("INSERT INTO fah_personas" + columnas + " VALUES " + valores, (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -33,13 +33,13 @@ const progApaGet = (req, res) => {
     let personas = []
     let productoras = []
 
-    selectQuery("(doc_id, nombre1, apellido1)", "personas", "", '', (err, result) => {
+    selectQuery("doc_id, nombre1, apellido1", "fah_personas", "", '', (err, result) => {
         if (err)
             res.status(500).send(err)
         else{
             personas = result
 
-            selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => { //
+            selectQuery("e.id, e.nombre", "fah_empresasproductoras e", '', '', (err, result) => { 
                 if (err)
                     res.status(500).send(err)
                 else{
@@ -56,7 +56,7 @@ const variedadPost = (req, res) => {
 
     const condicion = " WHERE c.id_prod = " + id_prod + " AND v.id = c.id_crz"
 
-    selectQuery("v.nombre, v.id", "variedadescrz v, cultivos c", condicion, " GROUP BY v.id", (err, result) => {
+    selectQuery("v.nombre, v.id", " fah_variedadescrz v, fah_cultivos c ", condicion, " GROUP BY v.id", (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -78,7 +78,7 @@ const progApaPost = (req, res) => {
     valores = valores + ")"
     columnas = columnas + ")"
         
-    pool.query("INSERT INTO apadrinamientos " + columnas + " VALUES "+ valores, (err, result) =>{
+    pool.query("INSERT INTO fah_apadrinamientos " + columnas + " VALUES "+ valores, (err, result) =>{
         if (err)
             res.status(500).send(err)
         else
@@ -91,7 +91,7 @@ const cancelarProgApaPerPost = (req, res) => {
 
     const condicion = " WHERE a.id_prod = " + id_prod + " AND p.doc_id = a.id_per"
 
-    selectQuery("p.doc_id, p.nombre1, p.apellido1", " apadrinamientos a, personas p", condicion, "GROUP BY p.doc_id", (err, result) => {
+    selectQuery("p.doc_id, p.nombre1, p.apellido1", " fah_apadrinamientos a, fah_personas p", condicion, "GROUP BY p.doc_id", (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -104,7 +104,7 @@ const cancelarProgApaCrzPost = (req, res) => {
 
     const condicion = " WHERE a.id_prod = " + id_prod + " AND a.id_per = " + id_per + " AND a.id_crz = v.id"
 
-    selectQuery("v.id, v.nombre", " variedadescrz v, apadrinamientos a", condicion, "GROUP BY v.id", (err, result) => {
+    selectQuery("v.id, v.nombre", " fah_variedadescrz v, fah_apadrinamientos a", condicion, "GROUP BY v.id", (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -115,7 +115,7 @@ const cancelarProgApaCrzPost = (req, res) => {
 const cancelarProgApaPost = (req, res) => {
     const {id_prod, id_per, id_crz} = req.body
 
-    pool.query("UPDATE apadrinamientos SET fecha_fin = CURDATE() WHERE id_per = " + id_per + " AND id_crz = " + id_crz + " AND id_prod = " + id_prod, (err, result) => {
+    pool.query("UPDATE fah_apadrinamientos SET fecha_fin = CURDATE() WHERE id_per = " + id_per + " AND id_crz = " + id_crz + " AND id_prod = " + id_prod, (err, result) => {
         if (err)
             res.status(500).send(err)
         else
@@ -124,7 +124,7 @@ const cancelarProgApaPost = (req, res) => {
 }
 
 const productoraGet = (req, res) => {
-    selectQuery("e.id, e.nombre", "empresasproductoras e", '', '', (err, result) => { //
+    selectQuery("e.id, e.nombre", " fah_empresasproductoras e", '', '', (err, result) => { 
         if (err)
             res.status(500).send(err)
         else

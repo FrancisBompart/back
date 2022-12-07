@@ -3,7 +3,8 @@ import { variedadController } from "../controllers/variedadController.js";
 
 const router = Router()
 
-router.get('/registrar', variedadController.variedadGet)
+router.get('/registrar', variedadController.variedadPaisesGet)
+router.get('', variedadController.variedadesGet)
 router.post('/registrar', variedadController.variedadPost)
 router.get('/registrarPrecio', variedadController.precioVariedadGet)
 router.post('/precioActual', variedadController.precioVarActualGet)

@@ -5,13 +5,13 @@ const proveedorGet = (req, res) => {
     let paises = []
     let ramasNeg = []
 
-    selectQuery("p.id, p.nombre", "paises p", '', '',(err, result) => { 
+    selectQuery("p.id, p.nombre", "fah_paises p", '', '',(err, result) => { 
         if (err)
             res.status(500).send(err)
         else{
             paises = result
 
-            selectQuery("r.id, r.nombre", "ramasnegocio r", '', '',(err, result) => {
+            selectQuery("r.id, r.nombre", "fah_ramasnegocio r", '', '',(err, result) => {
                 if (err)
                     res.status(500).send(err)
                 else{
